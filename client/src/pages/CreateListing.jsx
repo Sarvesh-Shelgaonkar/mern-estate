@@ -32,7 +32,8 @@ export default function CreateListing() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   console.log(formData);
-  const handleImageSubmit = (e) => {
+   // Image Upload Logic - Cloudinary
+   const handleImageSubmit = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
       setUploading(true);
       setImageUploadError(false);
@@ -60,28 +61,27 @@ export default function CreateListing() {
     }
   };
 
+  // Upload to Cloudinary
   const storeImage = async (file) => {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "mern-estate");
+    data.append("cloud_name", "dupythh95");
+
     return new Promise((resolve, reject) => {
-      const storage = getStorage(app);
-      const fileName = new Date().getTime() + file.name;
-      const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`Upload is ${progress}% done`);
-        },
-        (error) => {
-          reject(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            resolve(downloadURL);
-          });
-        }
-      );
+      fetch("https://api.cloudinary.com/v1_1/dupythh95/image/upload", {
+        method: "POST",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((uploadedImage) => {
+          if (uploadedImage.secure_url) {
+            resolve(uploadedImage.secure_url); // Cloudinary URL
+          } else {
+            reject("Image upload failed");
+          }
+        })
+        .catch((err) => reject(err));
     });
   };
 
@@ -138,8 +138,8 @@ export default function CreateListing() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...formData,
-          userRef: currentUser._id,
+          ...formData,  // This includes imageUrls from Cloudinary
+          userRef: currentUser._id, // Make sure currentUser._id is included
         }),
       });
       const data = await res.json();
@@ -153,6 +153,7 @@ export default function CreateListing() {
       setLoading(false);
     }
   };
+  
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">
