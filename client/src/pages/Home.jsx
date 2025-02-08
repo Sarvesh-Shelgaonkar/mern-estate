@@ -6,11 +6,12 @@ import SwiperCore from "swiper";
 import "swiper/css/bundle";
 import ListingItem from "../components/ListingItem";
 import TypewriterEffect from "../components/TypewriterEffect";
-
+import DarkModeToggle from "../components/DarkModeToggle";
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   SwiperCore.use([Navigation]);
   console.log(offerListings);
   useEffect(() => {
@@ -47,7 +48,27 @@ export default function Home() {
     fetchRentListings();
     fetchSaleListings();
   }, []);
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      setIsDarkMode(true);
+    } else {
+      setIsDarkMode(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isDarkMode) {
+      localStorage.setItem('theme', 'dark');
+    } else {
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
+
+
   return (
+    <div className={isDarkMode ? 'dark' : 'light'}>
+     <DarkModeToggle isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
     <div>
       {/* top */}
       <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto">
@@ -150,5 +171,6 @@ export default function Home() {
         )}
       </div>
     </div>
+     </div>
   );
 }

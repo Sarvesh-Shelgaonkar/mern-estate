@@ -4,3 +4,14 @@
 body{
     background-color: rgb(241, 245, 241);
 }
+
+.dark {
+    background-color: #121212;
+    color: white;
+  }
+  
+  .light {
+    background-color: white;
+    color: black;
+  }
+  
