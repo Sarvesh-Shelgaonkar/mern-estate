@@ -9,7 +9,7 @@ export default function TypewriterEffect() {
       strings: [
         `Find your next <span class="text-slate-500 font-bold">perfect</span> <br/> place with ease`
       ],
-      typeSpeed: 50,
+      typeSpeed: 80,
       backSpeed: 25,
       showCursor: false,
       loop: true,

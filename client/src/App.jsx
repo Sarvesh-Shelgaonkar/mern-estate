@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react"; // Add useEffect
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
@@ -16,13 +16,21 @@ import Intro from "./pages/Intro";
 export default function App() {
   const [isIntroEnded, setIntroEnded] = useState(false);
 
-  setTimeout(() => {
-    setIntroEnded(true);
-  }, 700);
+  // Use useEffect for the intro timeout
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIntroEnded(true); // End the intro after 3.5 seconds
+    }, 1000); // Adjust this duration to match your intro animation
+
+    return () => clearTimeout(timer); // Cleanup the timer
+  }, []);
 
   return (
     <BrowserRouter>
-      <Header />
+      {/* Conditionally render the Header */}
+      {isIntroEnded && <Header />}
+
+      {/* Render Intro or Routes based on isIntroEnded */}
       {isIntroEnded ? (
         <Routes>
           <Route path="/" element={<Home />} />
@@ -42,6 +50,5 @@ export default function App() {
         <Intro />
       )}
     </BrowserRouter>
-
   );
 }
