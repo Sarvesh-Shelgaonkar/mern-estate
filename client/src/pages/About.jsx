@@ -45,9 +45,9 @@ export default function About() {
         </h2>
         <div className="flex flex-col items-center">
           <img
-            src="https://res.cloudinary.com/dupythh95/image/upload/v1738924976/WhatsApp_Image_2025-02-07_at_4.10.18_PM_woiy7a.jpg"
+            src="https://res.cloudinary.com/dupythh95/image/upload/v1739053821/x4yvjg4cx63ary0glndq.jpg"
             alt="Sarvesh Shelgaonkar"
-             className="w-40 h-40 rounded-full mb-2 shadow-lg object-cover"
+            className="w-40 h-40 rounded-full mb-2 shadow-lg object-cover"
           />
           <p className="text-xl font-semibold text-slate-800">
             Sarvesh Shelgaonkar
