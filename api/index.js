@@ -6,6 +6,23 @@ import authRouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import listingRouter from "./routes/listing.route.js";
 import path from "path";
+import axios from "axios";
+
+const url = `https://mern-estate-5j9z.onrender.com`;
+const interval = 30000; // 30 seconds
+
+function reloadWebsite() {
+  axios
+    .get(url)
+    .then((response) => {
+      console.log("website reloaded");
+    })
+    .catch((error) => {
+      console.error(`Error : ${error.message}`);
+    });
+}
+
+setInterval(reloadWebsite, interval);
 
 const app = express();
 dotenv.config();
