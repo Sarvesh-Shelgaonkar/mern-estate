@@ -10,8 +10,9 @@ import axios from "axios";
 
 const url = `https://mern-estate-5j9z.onrender.com`;
 const interval = 30000; // 30 seconds
-
-function reloadWebsite() {
+  
+function reloadWebsite() 
+{
   axios
     .get(url)
     .then((response) => {
@@ -37,6 +38,7 @@ app.use(cookieParser());
 app.listen(3000, () => {
   console.log(`Server is Running on Port 3000!`);
 });
+
 //connect to mongoose
 
 app.use("/api/user", userRouter);
