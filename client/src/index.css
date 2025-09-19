@@ -18,7 +18,6 @@
 }
 
 body {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   transition: all 0.3s ease;
 }
@@ -29,9 +28,7 @@ body {
   color: #ffffff;
 }
 
-.dark body {
-  background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
-}
+/* Dark theme body styles removed to avoid conflicts */
 
 
 
